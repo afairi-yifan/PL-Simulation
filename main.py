@@ -1,9 +1,10 @@
 import warnings
 import os
-import warnings
 import pandas as pd
 from pandas import ExcelWriter
 
+import config
+from functions import *
 '''
 Framework to parse parameters and data 
 sheet_name format as 
@@ -26,10 +27,14 @@ def get_data(filepath, sheetname):
 
 
 if __name__ == '__main__':
-    path_dir = 'data/input/data.xlsx'
-    sheet_name = "Cohort PI 000-"
-    df_test = get_data(path_dir, sheet_name)
-    print(df_test)
+    # path_dir = 'data/input/data.xlsx'
+    # sheet_name = "Cohort PI 000-"
+    # df_test = get_data(path_dir, sheet_name)
+    # print(df_test)
     # print_hi('PyCharm')
 
+    #Test case 1
+    data = CustomData(config.file_path, 'UW', 'G1')
+    df_input = data.dataframe_from_excel2()
+    print(df_input)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

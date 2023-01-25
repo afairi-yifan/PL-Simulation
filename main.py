@@ -22,19 +22,24 @@ def get_data(filepath, sheetname):
     df = df.filter(like="Value", axis=1).transpose()
     df.columns = colnames
     df.index = df['months since start']
-
     return df
 
 
-if __name__ == '__main__':
-    # path_dir = 'data/input/data.xlsx'
-    # sheet_name = "Cohort PI 000-"
-    # df_test = get_data(path_dir, sheet_name)
-    # print(df_test)
-    # print_hi('PyCharm')
 
+
+if __name__ == '__main__':
     #Test case 1
     data = CustomData(config.file_path, 'UW', 'G1')
-    df_input = data.dataframe_from_excel2()
-    print(df_input)
+    data_dic = get_global_data(config.file_path)
+    df = data.dataframe_from_excel()
+    list_var = data.load_list_outputs_variables()
+    c1 = Cohort(df, list_var, data_dic[1])
+    # print(str(c1))
+    c1.update(120)
+    outout = c1.ret_final_report().transpose()
+    print(outout)
+    #
+    with ExcelWriter(f'{config.save_path}') as writer:
+        outout.to_excel(writer, sheet_name='Simulation forth test')
+
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
